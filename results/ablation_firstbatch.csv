@@ -1,0 +1,13 @@
+dataset,method,first_batch_inspection_rate,first_batch_missed_failures,first_batch_shift_flag
+AI4I,DTCG-Proposed,1.0,0.0,1.0
+AI4I,DTCG-always-roll,0.2,0.0,1.0
+AI4I,DTCG-min-failures-1,1.0,0.0,1.0
+AI4I,DTCG-min-failures-10,1.0,0.0,1.0
+AI4I,DTCG-no-first-shift-hold,0.2,0.0,1.0
+AI4I,DTCG-no-rolling,1.0,0.0,1.0
+SECOM,DTCG-Proposed,1.0,0.0,1.0
+SECOM,DTCG-always-roll,0.808,0.0,1.0
+SECOM,DTCG-min-failures-1,1.0,0.0,1.0
+SECOM,DTCG-min-failures-10,1.0,0.0,1.0
+SECOM,DTCG-no-first-shift-hold,0.808,0.0,1.0
+SECOM,DTCG-no-rolling,1.0,0.0,1.0

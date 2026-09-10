@@ -1,0 +1,62 @@
+{
+  "datasets": [
+    {
+      "name": "SECOM",
+      "task": "semiconductor manufacturing pass/failure classification",
+      "source": "UCI Machine Learning Repository, DOI: 10.24432/C54305",
+      "n_instances": 1567,
+      "n_raw_features": 590,
+      "n_retained_features": 574,
+      "missing_values_before_imputation": 41951,
+      "positive_failures": 104,
+      "train_range": [
+        0,
+        399
+      ],
+      "calibration_range": [
+        400,
+        799
+      ],
+      "test_range": [
+        800,
+        1566
+      ]
+    },
+    {
+      "name": "AI4I",
+      "task": "predictive maintenance machine-failure classification",
+      "source": "UCI Machine Learning Repository, DOI: 10.24432/C52G8C",
+      "n_instances": 10000,
+      "n_raw_features": 14,
+      "n_retained_features": 8,
+      "missing_values_before_imputation": 0,
+      "positive_failures": 339,
+      "train_range": [
+        0,
+        5999
+      ],
+      "calibration_range": [
+        6000,
+        7999
+      ],
+      "test_range": [
+        8000,
+        9999
+      ]
+    }
+  ],
+  "default_batch_size": 50,
+  "alpha": 0.1,
+  "gamma": 0.65,
+  "seeds": [
+    7,
+    17,
+    27,
+    37,
+    47
+  ],
+  "max_recent_inspected_labels": 200,
+  "test_labels_used_for_tuning": false,
+  "sensitivity_aggregation": "each parameter value is evaluated for all five fixed seeds; reported standard deviations are across seed-level mean rates",
+  "stable_prefix_analysis": "calibration-like bootstrap prefix followed by the original test feature stream"
+}

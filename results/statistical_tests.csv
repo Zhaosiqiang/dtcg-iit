@@ -1,0 +1,17 @@
+dataset,comparison,metric,n_pairs,wilcoxon_statistic,p_value,significant_at_0.05
+AI4I,DTCG-Proposed vs Mondrian-CP,auto_release_rate,200,0.0,0.043114446783075355,1
+AI4I,DTCG-Proposed vs Mondrian-CP,missed_failure_rate,200,0.0,1.0,0
+AI4I,DTCG-Proposed vs Periodic-Rolling-CP,auto_release_rate,200,0.0,1.1282039197398112e-16,1
+AI4I,DTCG-Proposed vs Periodic-Rolling-CP,missed_failure_rate,200,0.0,0.025347318677468256,1
+AI4I,Mondrian-CP vs Global-CP,auto_release_rate,200,0.0,3.834495873605891e-18,1
+AI4I,Mondrian-CP vs Global-CP,missed_failure_rate,200,0.0,0.025347318677468256,1
+AI4I,Mondrian-CP vs Probability-0.5,auto_release_rate,200,0.0,9.300667570969241e-32,1
+AI4I,Mondrian-CP vs Probability-0.5,missed_failure_rate,200,0.0,1.0325972719819228e-11,1
+SECOM,DTCG-Proposed vs Mondrian-CP,auto_release_rate,80,0.0,0.042168197097155954,1
+SECOM,DTCG-Proposed vs Mondrian-CP,missed_failure_rate,80,0.0,1.0,0
+SECOM,DTCG-Proposed vs Periodic-Rolling-CP,auto_release_rate,80,0.0,3.4868019714866016e-12,1
+SECOM,DTCG-Proposed vs Periodic-Rolling-CP,missed_failure_rate,80,0.0,0.011412036386001646,1
+SECOM,Mondrian-CP vs Global-CP,auto_release_rate,80,0.0,7.742220507641855e-15,1
+SECOM,Mondrian-CP vs Global-CP,missed_failure_rate,80,0.0,6.671938615966473e-14,1
+SECOM,Mondrian-CP vs Probability-0.5,auto_release_rate,80,0.0,7.62684752177406e-15,1
+SECOM,Mondrian-CP vs Probability-0.5,missed_failure_rate,80,0.0,2.0736994984004154e-14,1

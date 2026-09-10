@@ -1,0 +1,13 @@
+dataset,method,first5_missed_failures,first5_inspection_rate,first5_missed_failure_rate
+AI4I,DTCG-Proposed,5.0,0.31120000000000003,0.2
+AI4I,DTCG-always-roll,5.0,0.1512,0.2
+AI4I,DTCG-min-failures-1,5.0,0.31120000000000003,0.2
+AI4I,DTCG-min-failures-10,5.0,0.31120000000000003,0.2
+AI4I,DTCG-no-first-shift-hold,5.0,0.1512,0.2
+AI4I,DTCG-no-rolling,5.0,0.31120000000000003,0.2
+SECOM,DTCG-Proposed,0.0,0.7831999999999999,0.0
+SECOM,DTCG-always-roll,0.0,0.7088,0.0
+SECOM,DTCG-min-failures-1,0.0,0.7831999999999999,0.0
+SECOM,DTCG-min-failures-10,0.0,0.7831999999999999,0.0
+SECOM,DTCG-no-first-shift-hold,0.0,0.7448,0.0
+SECOM,DTCG-no-rolling,0.0,0.7831999999999999,0.0
