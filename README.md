@@ -26,6 +26,6 @@ tectonic --keep-logs --keep-intermediates main.tex
 
 The manuscript uses XeLaTeX/Tectonic with `fontspec` and the installed Times New Roman family. The local `IEEEtran.cls` has a narrow XeLaTeX initialization compatibility branch; the body font remains Times New Roman. After compilation, confirm `pdfinfo main.pdf` reports 8–10 pages and confirm that `main.log` contains no `LaTeX Font Warning`.
 
-The manuscript is not an acceptance guarantee and has not been submitted by this workspace. Before upload, the corresponding author must confirm the final author list, bind ORCID in IEEE Author Portal, provide a permanent public code/DOI link if required, run the portal’s IEEE PDF Checker, and independently review the claims, data rights, authorship, and simultaneous-submission status.
+The manuscript is not an acceptance guarantee and has not been submitted by this workspace. The public reproducibility repository is https://github.com/Zhaosiqiang/dtcg-iit. Before upload, the corresponding author must confirm the final author list, bind ORCID in IEEE Author Portal, archive this release in Zenodo if a DOI is required, run the portal’s IEEE PDF Checker, and independently review the claims, data rights, authorship, and simultaneous-submission status.
 
 The sensitivity exports use five fixed seeds for every parameter value. In particular, `sensitivity_class_weight.csv` reports a seed-level standard deviation for both datasets; blank standard-deviation cells are not expected after running `python run_experiment.py`.

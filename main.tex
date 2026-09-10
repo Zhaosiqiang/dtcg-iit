@@ -94,7 +94,7 @@ For sample $t$, the predictor produces $p_t=f_{\theta}(x_t)$. The gate returns e
 \widehat{r}_{\mathrm{miss}}=\frac{\sum_t \mathbb{1}\{a_t=\mathrm{AUTO\text{-}RELEASE},y_t=1\}}{\sum_t \mathbb{1}\{y_t=1\}}.
 \label{eq:miss}
 \end{equation}
-The efficiency metric is the auto-release rate $\widehat{e}=T^{-1}\sum_t\mathbb{1}\{a_t=\mathrm{AUTO\text{-}RELEASE}\}$. We also report inspection rate, failure capture, the model's ROC AUC and average precision, and batch-level state transitions. These metrics expose the safety--capacity trade-off rather than hiding it in overall accuracy.
+{\raggedright The efficiency metric is the auto-release rate $\widehat{e}=T^{-1}\sum_t\mathbb{1}\{a_t=\mathrm{AUTO\text{-}RELEASE}\}$. We report inspection rate, failure capture, ROC AUC, average precision, and batch-level state transitions. These metrics expose the safety--capacity trade-off rather than hiding it in overall accuracy.\par}
 
 \section{Drift-Triggered Conformal Quality Gate}
 \label{sec:method}
@@ -145,6 +145,7 @@ The gate maintains $s_b$, indicating whether a shift has already been observed, 
 \begin{algorithm}[t]
 \caption{DTCG gate policy.}
 \label{alg:dtcg}
+\footnotesize
 \begin{algorithmic}[1]
 \Require Current batch $X_b$, predictor $f_\theta$, calibration scores, $\alpha$, $\gamma$, minimum $m$
 \State Compute $p_b=f_\theta(X_b)$ and the unlabeled domain AUC $A_b$
@@ -200,11 +201,12 @@ Rows preserve the supplied order; SECOM also supplies timestamps that are consis
 \subsection{Methods and implementation}
 The common predictor is a random forest with 500 trees, square-root feature subsampling, minimum leaf size two, and class weights $w_0=1,w_1=8$. The baselines are:
 \begin{itemize}
+    \raggedright
     \item \textbf{Probability-0.5:} auto-release when $p_t<0.5$.
     \item \textbf{Global-CP:} one pooled conformal threshold.
     \item \textbf{Mondrian-CP:} the class-conditional threshold in (\ref{eq:tau}); this is the static baseline.
-    \item \textbf{Weighted-Mondrian:} unlabeled domain-classifier density-ratio weighting of the two class-specific calibration sets.
-    \item \textbf{Periodic-Rolling-CP:} update class-conditional calibration whenever at least five prior inspected failures exist, with no drift trigger.
+    \item \textbf{Weighted-Mondrian:} domain-weighted class-conditional CP using an unlabeled domain classifier.
+    \item \textbf{Periodic-Rolling-CP:} update class-conditional calibration after batches with at least five prior inspected failures; no drift trigger.
     \item \textbf{DTCG-Proposed:} Algorithm 1 with $\alpha=0.10$, $\gamma=0.65$, batch size 50, $m=5$, and at most 200 recent inspected labels.
 \end{itemize}
 
@@ -278,7 +280,7 @@ Dataset & Variant & Auto-release & Inspection & Missed failure \\
 \end{table*}
 
 \subsection{Statistical significance}
-The paired two-sided Wilcoxon signed-rank tests use identical seed--batch coordinates within each dataset. Under the normal approximation used by SciPy, DTCG versus static Mondrian-CP is significant for auto-release on SECOM ($p=0.0422$) and AI4I ($p=0.0431$), but the corresponding exact tests give $p=0.0625$ because most paired differences are zero. Neither comparison is significant for missed-failure rate ($p=1.0000$ in both datasets). DTCG versus Periodic-Rolling-CP is significant for auto-release on SECOM ($p=3.49\times10^{-12}$) and AI4I ($p=1.13\times10^{-16}$), and also for missed failure on SECOM ($p=0.0114$) and AI4I ($p=0.0253$). Mondrian-CP differs from Global-CP in both auto-release and missed-failure rate on SECOM ($p<10^{-13}$) and in auto-release on AI4I ($p<10^{-17}$); its AI4I missed-failure comparison gives $p=0.0253$. Mondrian-CP versus Probability-0.5 is significant for both metrics on both datasets ($p\leq2.1\times10^{-11}$). The non-significant DTCG--Mondrian missed-failure tests are important: the data do not support claiming that DTCG lowers missed failures relative to static Mondrian-CP.
+The paired two-sided Wilcoxon signed-rank tests use identical seed--batch coordinates within each dataset. Under SciPy's normal approximation, DTCG versus static Mondrian-CP is significant for auto-release on SECOM ($p=0.0422$) and AI4I ($p=0.0431$); exact tests give $p=0.0625$ because most paired differences are zero. Neither comparison is significant for missed-failure rate ($p=1.0000$ in both datasets). DTCG versus Periodic-Rolling-CP is significant for auto-release on SECOM ($p=3.49\times10^{-12}$) and AI4I ($p=1.13\times10^{-16}$), and for missed failure on SECOM ($p=0.0114$) and AI4I ($p=0.0253$). Mondrian-CP differs from Global-CP in both metrics on SECOM ($p<10^{-13}$) and in auto-release on AI4I ($p<10^{-17}$); its AI4I missed-failure comparison gives $p=0.0253$. Mondrian-CP versus Probability-0.5 is significant for both metrics on both datasets ($p\leq2.1\times10^{-11}$). The non-significant DTCG--Mondrian missed-failure tests do not support claiming lower missed failures than static Mondrian-CP.
 
 \subsection{Drift trigger and nonstationary scenarios}
 On the original streams the domain detector flags every default batch: mean domain AUC is $0.990\pm0.013$ for SECOM and $0.993\pm0.022$ for AI4I. This means that the original benchmark evaluation is close to a “shifted conservative mode” test rather than a clean test of repeated stable-to-shift transitions. We therefore add a detector-only stress test. For each seed, the first four scenario batches are sampled with replacement from the calibration features, followed by eight batches of the original test features. The detector receives no labels.
@@ -362,7 +364,7 @@ The weighted baseline demonstrates why higher release efficiency is not automati
 
 There are six limitations. (1) SECOM is semiconductor data and AI4I is synthetic predictive-maintenance data, so aerospace transfer is unvalidated. (2) The datasets contain one ordered trace each; the failure counts are small in the SECOM test segment, making the batch-level standard deviations wide. (3) The domain classifier detects feature shift but does not identify root cause, label shift, or conditional risk. (4) $\gamma=0.65$, $m=5$, and the batch sizes are engineering settings, not universal optima. (5) Retrospective test labels are available to compute metrics, while a live gate would only see labels for inspected units after delay. (6) The paper does not measure real gateway latency, sensor outage behavior, human override rates, or quality-system integration.
 
-Before industrial use, the method must be validated with multiple product variants, equipment states, suppliers, production-rate regimes, and real inspection dispositions. No automatic release should be enabled solely from the evidence in this paper.
+{\raggedright Before industrial use, the method must be validated across product variants, equipment states, suppliers, production-rate regimes, and real inspection dispositions, followed by quality and safety approval. No automatic release should rely solely on the evidence in this paper.\par}
 
 \section{Conclusion}
 \label{sec:conclusion}
@@ -371,7 +373,7 @@ We presented DTCG, a traceable decision layer for industrial quality and mainten
 \section*{Declarations}
 \textbf{Data availability:} The UCI SECOM and AI4I 2020 Predictive Maintenance datasets are publicly available from the UCI Machine Learning Repository under DOI 10.24432/C54305 and DOI 10.24432/C52G8C, respectively.
 
-\textbf{Code and results availability:} The reproducibility package, including \texttt{run\_experiment.py}, frozen result CSV files, figures, and the experiment manifest, is included with this manuscript's supplementary materials. A permanent public GitHub/Zenodo URL and DOI will be attached to the IEEE submission record before publication; the local package is the current review artifact.
+\textbf{Code and results availability:} The reproducibility package, including \texttt{run\_experiment.py}, frozen result CSV files, figures, and the experiment manifest, is publicly available at \url{https://github.com/Zhaosiqiang/dtcg-iit}. A DOI has not been minted for this repository.
 
 \textbf{Funding:} This study received no external funding.
 
